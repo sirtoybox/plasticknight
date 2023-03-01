@@ -1,9 +1,314 @@
-/* CSS is how you can add style to your website, such as colors, fonts, and positioning of your
-   HTML content. To learn how to do something, just try searching Google for questions like
-   "how to change link color." */
+       /* user styles */
 
-body {
-  background-color: white;
-  color: black;
-  font-family: Verdana;
-}
+            /* styles are what change the color and sizes of stuff on your site. */
+
+            /* these are variables that are being used in the code
+    these tended to confuse some people, so I only kept 
+    the images as variables */
+
+            :root {
+                --header-image: url('assets/bannersize.png');
+                --body-bg-image: url('assets/wallreflect.png');
+
+                /* colors */
+                --content: #43256E;
+            }
+
+            /* if you have the URL of a font, you can set it below */
+            /* feel free to delete this if it's not your vibe */
+
+            /* this seems like a lot for just one font and I would have to agree 
+    but I wanted to include an example of how to include a custom font.
+    If you download a font file you can upload it onto your Neocities
+    and then link it! Many fonts have separate files for each style
+    (bold, italic, etc. T_T) which is why there are so many!
+    
+    */
+
+            @font-face {
+                font-family: perfectdos;
+                src: url('fonts/perfectdosvga/Perfect DOS VGA 437 Win.ttf');
+            }
+
+            @font-face {
+                font-family: perfectdos;
+                src: url('fonts/perfectdosvga/Perfect DOS VGA 437 Win.ttf');
+                font-weight: bold;
+            }
+
+            @font-face {
+                font-family: perfectdos;
+                src: url('fonts/perfectdosvga/Perfect DOS VGA 437 Win.ttf');
+                font-style: italic;
+            }
+
+            @font-face {
+                font-family: perfectdos;
+                src: url('fonts/perfectdosvga/Perfect DOS VGA 437 Win.ttf');
+                font-style: italic;
+                font-weight: bold;
+            }
+
+            @font-face {
+                font-family: paskowy;
+                src: url('fonts/paskowy/Paskowy.ttf');
+            }
+
+            @font-face {
+                font-family: daydream;
+                src: url('fonts/daydream/Daydream.ttf');
+            }
+
+            @font-face {
+                font-family: pixhobo;
+                src: url('fonts/pixhobo/pixhobo.ttf');
+            }
+
+            body {
+                font-family: 'perfectdos', sans-serif;
+                margin-top: 25px;
+                background-color: #08031A;
+                background-size: cover;
+                background-attachment: fixed;
+                color: #ffffff;
+                background-image: var(--body-bg-image);
+                outline-color: #08031A;
+                font-size: 18px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            /* below this line is CSS for the layout */
+
+            /* this is a CSS comment
+    to uncomment a line of CSS, remove the * and the /
+    before and after the text */
+
+
+            /* the "container" is what wraps your entire website */
+            /* if you want something (like the header) to be Wider than
+    the other elements, you will need to move that div outside
+    of the container */
+            #container {
+                max-width: 900px;
+                /* this is the width of your layout! */
+                /* if you change the above value, scroll to the bottom
+      and change the media query according to the comment! */
+                margin: auto;
+                /* this centers the entire page */
+            }
+
+            /* the area below is for all links on your page
+    EXCEPT for the navigation */
+            #container a {
+                color: #FFFF63;
+                font-weight: bold;
+                /* if you want to remove the underline
+      you can add a line below here that says:
+      text-decoration:none; */
+            }
+
+            #header {
+                width: 100%;
+                background-color: #202136;
+                /* header color here! */
+                height: 150px;
+                /* this is only for a background image! */
+                /* if you want to put images IN the header, 
+      you can add them directly to the <div id="header"></div> element! */
+                background-image: var(--header-image);
+                background-size: 100%;
+            }
+
+            /* navigation section!! */
+            #navbar {
+                height: 50px;
+                background-color: #281C34;
+                /* navbar color */
+                width: 100%;
+            }
+
+            #navbar ul {
+                display: flex;
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+                justify-content: space-evenly;
+            }
+
+            #navbar li {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            /* navigation links*/
+            #navbar li a {
+                color: #ffffff;
+                /* navbar text color */
+                text-decoration: none;
+                /* this removes the underline */
+            }
+
+            /* navigation link when a link is hovered over */
+            #navbar li a:hover {
+                color: #1FFFD9;
+                text-decoration: underline;
+            }
+
+            #flex {
+                display: flex;
+            }
+
+            /* this colors BOTH sidebars
+    if you want to style them separately,
+    create styles for #leftSidebar and #rightSidebar */
+            aside {
+                background-color: #3A294A;
+                width: 210px;
+                padding: 20px;
+            }
+
+
+            /* this is the color of the main content area,
+    between the sidebars! */
+            main {
+                background-color: #4E3763;
+                flex: 1;
+                padding: 20px;
+                order: 2;
+            }
+
+            /* what's this "order" stuff about??
+    allow me to explain!
+    if you're using both sidebars, the "order" value
+    tells the CSS the order in which to display them.
+    left sidebar is 1, content is 2, and right sidebar is 3! */
+
+            */ #leftSidebar {
+                order: 1;
+            }
+
+            #rightSidebar {
+                order: 3;
+            }
+
+            h1 {
+                color: #1FFFD9;
+                font-family: 'daydream';
+                font-weight: lighter;
+                margin: auto;
+                font-size: 25px;
+                text-align: center;
+            }
+
+            h2,
+            h3 {
+                color: #1FFFD9;
+                font-family: 'paskowy';
+                font-weight: normal;
+                letter-spacing: 3px;
+                font-size: 40px;
+                margin: auto;
+                margin-top: 10px;
+                text-align: center;
+            }
+
+            h4 {
+                font-family: 'pixhobo';
+                font-weight: lighter;
+                margin-top: 10px;
+                text-align: center;
+            }
+                
+            h5 {
+                text-align: center;
+                color: #281C34;
+                margin: auto
+            }
+
+                
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            strong {
+                /* this styles bold text */
+                color: #FFFF63;
+            }
+
+            p {
+                text-align: left
+            }
+            
+            p2 {
+                margin-left: 10px;
+                align-content: stretch;
+            }
+
+            #navbar {
+                font-family: 'pixhobo';
+            }
+
+            /* this is just a cool box, it's the darker colored one */
+            .box {
+                background-color: #281C34;
+                border: 3px solid #FFFF63;
+                padding: 12px;
+                margin: 12px;
+            }
+
+            /* CSS for extras */
+
+            #topBar {
+                width: 100%;
+                height: 30px;
+                padding: 10px;
+                background-color: #1D0A3F;
+            }
+
+
+            /* BELOW THIS POINT IS MEDIA QUERY */
+
+            /* so you wanna change the width of your page? 
+    by default, the container width is 900px.
+    in order to keep things responsive, take your new height,
+    and then subtrack it by 100. use this new number as the 
+    "max-width" value below
+    */
+
+            @media only screen and (max-width: 800px) {
+                #flex {
+                    flex-wrap: wrap;
+                }
+
+                aside {
+                    width: 100%;
+                }
+
+                /* the order of the items is adjusted here for responsiveness!
+      since the sidebars would be too small on a mobile device.
+      feel free to play around with the order!
+      */
+                main {
+                    order: 1;
+                }
+
+                #leftSidebar {
+                    order: 2;
+                }
+
+                #rightSidebar {
+                    order: 3;
+                }
+
+                #navbar ul {
+                    flex-wrap: wrap;
+                }
+            }
+
+/* Start https://www.cursors-4u.com */ * {cursor: url(https://cur.cursors-4u.net/others/oth-2/oth110.cur), auto !important;} /* End https://www.cursors-4u.com */
+        </style>
