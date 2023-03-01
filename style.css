@@ -111,7 +111,7 @@
             }
 
             #header {
-                width: 100%;
+                width: 100%, auto;
                 background-color: #202136;
                 /* header color here! */
                 height: 150px;
@@ -141,6 +141,7 @@
             #navbar li {
                 padding-top: 10px;
                 padding-bottom: 10px;
+                font-size: 15px;
             }
 
             /* navigation links*/
@@ -201,6 +202,7 @@
                 margin: auto;
                 font-size: 25px;
                 text-align: center;
+                text-shadow: 4px 4px #281C34;
             }
 
             h2,
@@ -213,6 +215,8 @@
                 margin: auto;
                 margin-top: 10px;
                 text-align: center;
+                                text-shadow: 4px 4px #281C34;
+
             }
 
             h4 {
@@ -220,6 +224,8 @@
                 font-weight: lighter;
                 margin-top: 10px;
                 text-align: center;
+                                text-shadow: 4px 4px #281C34;
+
             }
                 
             h5 {
@@ -309,6 +315,4 @@
                     flex-wrap: wrap;
                 }
             }
-
 /* Start https://www.cursors-4u.com */ * {cursor: url(https://cur.cursors-4u.net/others/oth-2/oth110.cur), auto !important;} /* End https://www.cursors-4u.com */
-        </style>
