@@ -289,6 +289,13 @@
                 margin: 12px auto;
             }
 
+            marquee {
+                background-color: #281C34;
+                border: 3px outset #FFFF63;
+                padding: 12px;
+                margin: 12px auto;
+            }
+
             /* CSS for extras */
 
             #topBar {
