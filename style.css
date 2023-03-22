@@ -14,6 +14,12 @@
                 --content: #43256E;
             }
 
+            body {
+            cursor: url(assets/cursor.png), auto;                
+            }
+
+
+
             /* if you have the URL of a font, you can set it below */
             /* feel free to delete this if it's not your vibe */
 
@@ -289,12 +295,17 @@
                 margin: 12px auto;
             }
 
-            marquee {
+            marquee {  
+                overflow: hidden;
+                align-items: center;
+                justify-content: center;
                 background-color: #281C34;
                 border: 3px outset #FFFF63;
-                padding: 12px;
-                margin: 12px auto;
+                padding: 3px;
+                overflow: hidden;
+                margin: 12px auto;                
             }
+
 
             /* CSS for extras */
 
