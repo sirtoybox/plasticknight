@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet" type="text/css" media="all">
+    <title>Plastic Knight</title>
+    <link rel="icon" type="image/x-icon" href="assets/smallherois.png">
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+        
+        </head>
+    <script type="text/javascript">
+// <![CDATA[
+var colour="#FFFF63"; // in addition to "random" can be set to any valid colour eg "#f0f" or "red"
+var sparkles=50;
+
+/****************************
+*  Tinkerbell Magic Sparkle *
+*(c)2005-13 mf2fm web-design*
+*  http://www.mf2fm.com/rv  *
+* DON'T EDIT BELOW THIS BOX *
+****************************/
+var x=ox=400;
+var y=oy=300;
+var swide=800;
+var shigh=600;
+var sleft=sdown=0;
+var tiny=new Array();
+var star=new Array();
+var starv=new Array();
+var starx=new Array();
+var stary=new Array();
+var tinyx=new Array();
+var tinyy=new Array();
+var tinyv=new Array();
+
+window.onload=function() { if (document.getElementById) {
+  var i, rats, rlef, rdow;
+  for (var i=0; i<sparkles; i++) {
+    var rats=createDiv(3, 3);
+    rats.style.visibility="hidden";
+    rats.style.zIndex="999";
+    document.body.appendChild(tiny[i]=rats);
+    starv[i]=0;
+    tinyv[i]=0;
+    var rats=createDiv(5, 5);
+    rats.style.backgroundColor="transparent";
+    rats.style.visibility="hidden";
+    rats.style.zIndex="999";
+    var rlef=createDiv(1, 5);
+    var rdow=createDiv(5, 1);
+    rats.appendChild(rlef);
+    rats.appendChild(rdow);
+    rlef.style.top="2px";
+    rlef.style.left="0px";
+    rdow.style.top="0px";
+    rdow.style.left="2px";
+    document.body.appendChild(star[i]=rats);
+  }
+  set_width();
+  sparkle();
+}}
+
+function sparkle() {
+  var c;
+  if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+    ox=x;
+    oy=y;
+    for (c=0; c<sparkles; c++) if (!starv[c]) {
+      star[c].style.left=(starx[c]=x)+"px";
+      star[c].style.top=(stary[c]=y+1)+"px";
+      star[c].style.clip="rect(0px, 5px, 5px, 0px)";
+      star[c].childNodes[0].style.backgroundColor=star[c].childNodes[1].style.backgroundColor=(colour=="random")?newColour():colour;
+      star[c].style.visibility="visible";
+      starv[c]=50;
+      break;
+    }
+  }
+  for (c=0; c<sparkles; c++) {
+    if (starv[c]) update_star(c);
+    if (tinyv[c]) update_tiny(c);
+  }
+  setTimeout("sparkle()", 40);
+}
+
+function update_star(i) {
+  if (--starv[i]==25) star[i].style.clip="rect(1px, 4px, 4px, 1px)";
+  if (starv[i]) {
+    stary[i]+=1+Math.random()*3;
+    starx[i]+=(i%5-2)/5;
+    if (stary[i]<shigh+sdown) {
+      star[i].style.top=stary[i]+"px";
+      star[i].style.left=starx[i]+"px";
+    }
+    else {
+      star[i].style.visibility="hidden";
+      starv[i]=0;
+      return;
+    }
+  }
+  else {
+    tinyv[i]=50;
+    tiny[i].style.top=(tinyy[i]=stary[i])+"px";
+    tiny[i].style.left=(tinyx[i]=starx[i])+"px";
+    tiny[i].style.width="2px";
+    tiny[i].style.height="2px";
+    tiny[i].style.backgroundColor=star[i].childNodes[0].style.backgroundColor;
+    star[i].style.visibility="hidden";
+    tiny[i].style.visibility="visible"
+  }
+}
+
+function update_tiny(i) {
+  if (--tinyv[i]==25) {
+    tiny[i].style.width="1px";
+    tiny[i].style.height="1px";
+  }
+  if (tinyv[i]) {
+    tinyy[i]+=1+Math.random()*3;
+    tinyx[i]+=(i%5-2)/5;
+    if (tinyy[i]<shigh+sdown) {
+      tiny[i].style.top=tinyy[i]+"px";
+      tiny[i].style.left=tinyx[i]+"px";
+    }
+    else {
+      tiny[i].style.visibility="hidden";
+      tinyv[i]=0;
+      return;
+    }
+  }
+  else tiny[i].style.visibility="hidden";
+}
+
+document.onmousemove=mouse;
+function mouse(e) {
+  if (e) {
+    y=e.pageY;
+    x=e.pageX;
+  }
+  else {
+    set_scroll();
+    y=event.y+sdown;
+    x=event.x+sleft;
+  }
+}
+
+window.onscroll=set_scroll;
+function set_scroll() {
+  if (typeof(self.pageYOffset)=='number') {
+    sdown=self.pageYOffset;
+    sleft=self.pageXOffset;
+  }
+  else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+    sdown=document.body.scrollTop;
+    sleft=document.body.scrollLeft;
+  }
+  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+    sleft=document.documentElement.scrollLeft;
+    sdown=document.documentElement.scrollTop;
+  }
+  else {
+    sdown=0;
+    sleft=0;
+  }
+}
+
+window.onresize=set_width;
+function set_width() {
+  var sw_min=999999;
+  var sh_min=999999;
+  if (document.documentElement && document.documentElement.clientWidth) {
+    if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+    if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+  }
+  if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+    if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+    if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+  }
+  if (document.body.clientWidth) {
+    if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+    if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+  }
+  if (sw_min==999999 || sh_min==999999) {
+    sw_min=800;
+    sh_min=600;
+  }
+  swide=sw_min;
+  shigh=sh_min;
+}
+
+function createDiv(height, width) {
+  var div=document.createElement("div");
+  div.style.position="absolute";
+  div.style.height=height+"px";
+  div.style.width=width+"px";
+  div.style.overflow="hidden";
+  return (div);
+}
+
+function newColour() {
+  var c=new Array();
+  c[0]=255;
+  c[1]=Math.floor(Math.random()*256);
+  c[2]=Math.floor(Math.random()*(256-c[1]/2));
+  c.sort(function(){return (0.5 - Math.random());});
+  return ("rgb("+c[0]+", "+c[1]+", "+c[2]+")");
+}
+// ]]>
+</script>
+  <div id="container"><div id="header" style="height:200px; width: 900px" margin-left="auto" margin-right="auto"></div>
+            <div id="headerArea">
+                
+                
+            <nav id="navbar" style="margin-bottom: 0px;"><ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/music.html">Music</a></li>
+                <li><a href="/portfolio.html">Portfolio</a></li>
+                <li><a href="/kirbycloset.html">Kirby Closet</a></li>
+                <li><a href="/commissions.html">Commissions</a></li>
+                <li><a href="/guestbook.html">Guestbook</a></li>
+              </ul></nav></div>
+
+            <div id="flex">
+                
+                <main>
+                        <p></p>
+                    <h1>Commissions</h1>
+                    <h4><strong>General Commission Details</strong></h4>
+                    <p>This page contains general information about my commissions. If you want to commission me, I suggest familiarizing yourself with my rules and pricing!</p>
+                    <p>It isn't mandatory, but if you can, giving me a vague idea of what you want will help me significantly during the process. Things like reference images, palettes, and even stick figure sketches will help a lot!</p>
+                    
+                 <div class="box">  
+                 <p>Will Do:</p>
+<li><strong>Furries</strong></li>
+<li><strong>NSFW* (though I have my limits, I'll clarify if I'm willing to do something or not.)</strong></li>
+<li><strong>Minimal Gore/Candy Gore</strong></li>
+<li><strong>Basically anything as long as it is within reason</strong></li>
+
+                 <p>Will Not Do:</p>
+<li><strong>Complex Mecha</strong></li>
+<li><strong>Extremely Detailed Gore</strong></li>
+<li><strong>Problematic Ships (Pedophilia, Abuse, Real-Life Influencers, Incest, etc.)</strong></li>
+                     <p>*If you plan on buying an NSFW commission from me, please contact me in DMs about it on any of my public platforms. Ko-Fi does not accept direct NSFW commissions, and you will have to do it directly through PayPal.</p></div>
+               <p></p>
+                    <h4><strong>Important Notes/Guidelines</strong></h4>
+                    <p>My commission rules apply and I will refund you if ever necessary, just as long as you request it BEFORE I complete the expected commission. Expect the sketch to be finished soon, but there may be times where I cannot be as quick as I'd like it to be. Don't worry, though, because I will always try to finish them within a personal deadline. For commissions larger than a sketch, it may take more time. You can use these images for whatever you want, unless you intend to sell copies of it in some form and/or create NFTs.</p>
+                    <h4><img src="gifs/coins.gif"></h4>
+                    <h4><strong>Examples and Pricing</strong></h4>
+                    <p></p>
+<h4>                                      
+<head>
+<style>
+table {
+  font-family: 'perfectdos', sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 5px ridge #3A294A;
+  text-align: left;
+  padding: 5px;
+  background: #281C34;
+}
+</style>
+</head>
+<body>
+<table>
+  <tr>
+    <th><strong>Type</strong></th>
+    <th><strong>Description</strong></th>
+    <th><strong>Examples</strong></th>
+    <th><strong>Pricing (USD)</strong></th>
+
+  </tr>
+  <tr>
+    <td><strong>Sketch</strong></td>
+    <td>A somewhat clean sketch of a character of your choice. Generally about on par with my work without color or lineart.</td>
+    <td><h4><img src="images/sketch3.png" width="100%" height="auto" style="border: 5px ridge #1FFFD9"></h4></td>
+      <td><p>$10 Base Cost</p>
+    <p>+$3 Per Additional Character</p>
+    <p>+$3 Per Additional Doodle</p></td>
+
+  </tr>
+  <tr>
+    <td><strong>Head/Bust</strong></td>
+    <td>A headshot/bust shot of any character. Generally good for icons.</td>
+    <td><h4><img src="images/head3.png" width="100%" height="auto" style="border: 5px ridge #FFFF63"></h4></td>
+    <td><p>$20 Base Cost</p>
+    <p>+$5 Shading</p>
+    <p>+$5 Per Additional Character</p></td>
+
+  </tr>
+  <tr>
+    <td><strong>Halfbody</strong></td>
+    <td>A halfbody shot of any character. Good for some extra body detail.</td>
+    <td><h4><img src="images/half1.png" width="100%" height="auto" style="border: 5px ridge #1FFFD9"></h4></td>
+    <td><p>$25 Base Cost</p>
+    <p>+$5 Shading</p>
+    <p>+$5 Per Additional Character</p></td>
+      
+  </tr>
+  <tr>
+    <td><strong>Fullbody</strong></td>
+    <td>Fullbody shot of any character. This additionally includes things like character refs.</td>
+    <td><h4><img src="images/full3.png" width="100%" height="auto" style="border: 5px ridge #FFFF63"></h4></td>
+    <td><p>$30 Base Cost</p>
+    <p>+$5 Shading</p>
+    <p>+$5 Per Additional Character</p></td>
+
+  </tr>
+  <tr>
+    <td><strong>Scenic</strong></td>
+    <td>A more broad category for commissions with detailed and/or abstract backgrounds. </td>
+    <td><h4><img src="images/scene2.png" width="100%" height="auto" style="border: 5px ridge #1FFFD9"></h4></td>
+    <td><p>$40+ base cost</p>
+    <p>Please contact me in order to negotiate the cost!</p></td>
+</table>
+</body> 
+
+                    <div></div>
+                    <h4><img src="gifs/happypenny.gif" width="40px"> <a href="https://ko-fi.com/plasticknight/commissions">Click Here to Order on Ko-Fi <img src="gifs/happypenny.gif" width="40px"></a></h4>
+
+                </main>
+                
+            <aside id="leftSidebar" style="margin-right: 0px;">
+                  <h2><img src="gifs/tvstatic.gif"
+                     width="100px"></h2>
+                <h2>Contact</h2>
+            <div class="box">
+                <p></p>
+                <ul style="padding-left:5px;">
+                    If you want to get in contact with me, please reference one of the socials below, or send me a message through Discord <strong>@Plastic Knight#1996</strong>!
+                </ul>
+            </div>
+            <h3>My Socials</h3>
+            <ul>
+                <li><a href="https://www.instagram.com/plastic.knight/" target="_blank">Tumblr</a></li>
+                <li><a href="https://www.instagram.com/plastic.knight/" target="_blank">Instagram</a></li>
+                <li><a href="https://twitter.com/plastic_knight" target="_blank">Twitter</a></li>
+                <li><a href="https://www.deviantart.com/garfelix" target="_blank">DeviantArt</a></li>
+                <li><a href="https://www.youtube.com/channel/UCF3D7U116pdrjjpAIiaQjpg?view_as=subscriber" target="_blank">Youtube</a></li>
+                <li><a href="https://spacehey.com/plasticknight" target="_blank">Spacehey</a></li>               
+                <li><a href="https://artfight.net/~plasticknight" target="_blank">ArtFight</a></li>
+                            </ul>
+                
+                    <marquee width="100%" direction="up" height="300px" scrollamount="3">
+                    <img src="gifs/0096-blackgreen.gif">
+                    <img src="gifs/0002-mushroom.gif">
+                    <img src="gifs/0037-aprilfools.gif">
+                    <img src="gifs/0055-rainbowswirl.gif">
+                    <img src="gifs/0070-lavalamp.gif">
+                    <img src="gifs/0129-splatoon3.gif">
+                    <img src="gifs/0171-jerma.gif">
+                    <img src="gifs/0221-cd.gif">
+                    <img src="gifs/0105-gradientpurple.gif">
+                    <img src="gifs/0138-greenglow.gif">
+                    <img src="gifs/0000-kirbyfan.gif">
+                    <img src="gifs/0001-trans.gif">
+                    <img src="gifs/0092-computerconnect.gif">
+                    <img src="gifs/11.gif">
+                    <img src="gifs/15.gif">
+                    <img src="gifs/27.gif">
+                    <img src="gifs/53.gif">
+                    <img src="gifs/0069-alien.gif">
+                    <img src="gifs/96.gif">
+                    <img src="gifs/0105-gradientpurple.gif">
+                    <img src="gifs/130.gif">
+                    <img src="gifs/139.gif">
+                    <img src="gifs/0167-saw.gif">
+                    <img src="gifs/B1WKA4K.gif">
+                    <img src="gifs/yePAUt1.gif">
+                    <img src="gifs/pixelartistblinkie.gif">
+                    <img src="gifs/selfexpression.gif">
+                    <img src="gifs/tumblr_prd667qidG1wlhippo1_250.gif">
+                    <img src="gifs/tumblr_pt9fkvdlQ21waq2nj_250.gif">
+                    </marquee>
+                    <h4><a href="https://3ds.hacks.guide"><img src="gifs/3ds.gif"></a></h4>
+
+
+                </aside>
+          </div>
+        </div>
+
+    </html>
